@@ -1,14 +1,19 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion versionCompiler
+   	buildToolsVersion versionBuildTool
+   	compileOptions {
+   		sourceCompatibility javaSourceCompatibility
+   		targetCompatibility javaTargetCompatibility
+   	}
+
     defaultConfig {
         applicationId "jp.co.rediscovery.dronenotice"
         minSdkVersion 9
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion versionTarget
+        versionCode versionCondeNum
+        versionName versionNameString
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
