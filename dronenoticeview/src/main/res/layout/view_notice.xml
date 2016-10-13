@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingLeft="@dimen/drone_notice_view_padding_left"
+	android:paddingRight="@dimen/drone_notice_view_padding_right"
+	android:paddingTop="@dimen/drone_notice_view_padding_top"
+	android:paddingBottom="@dimen/drone_notice_view_padding_bottom"
+	android:orientation="vertical">
+
+	<ImageView
+		android:src="@drawable/notice01densely_populated"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:id="@+id/imageView"/>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		tools:text="notice"
+		android:textSize="24sp"
+		android:minHeight="24sp"
+		android:id="@+id/notice"
+		android:gravity="center_horizontal"
+		android:textColor="#ffff0000"/>
+</LinearLayout>

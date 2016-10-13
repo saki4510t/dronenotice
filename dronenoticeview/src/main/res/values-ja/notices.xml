@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="n000">人口密集地での飛行は禁止です（航空法によりドローンの飛行が制限される場合があります）</string>
+	<string name="n001">高度を上げ過ぎてはいけません（航空法では高度150ｍ未満です）</string>
+	<string name="n002">夜間飛行は禁止です</string>
+	<string name="n003">Fly Me to the Moon</string>
+	<string name="n004">あくまで目視で操縦してください</string>
+	<string name="n005">文化財や建築物を傷つけてはいけません</string>
+	<string name="n006">お城を攻撃してはいけません</string>
+	<string name="n007">ビルを攻撃しないで！</string>
+	<string name="n008">間違っても国会議事堂とか偵察しないで</string>
+	<string name="n009">戦闘機を攻撃してはいけません</string>
+	<string name="n010">ヘリコプターにぶつけてはいけません</string>
+	<string name="n011">人を攻撃するとか絶対に駄目です</string>
+	<string name="n012">動物を虐待してはいけません</string>
+	<string name="n013">報復されることもあります</string>
+	<string name="n014">他人の土地や家の上空を飛ぶのは不法侵入です</string>
+	<string name="n015">プライバシーを侵害しない</string>
+	<string name="n016">盗撮とか駄目ですよ</string>
+	<string name="n017">操縦に集中して！</string>
+	<string name="n018">飛行コンディションの確認を怠らない</string>
+	<string name="n019">機体、端末、機器は熱に弱いので制御不能に陥らないように気を付けて</string>
+	<string name="n020">キャリア端末なら制御用以外の不要な電波はOFFに</string>
+	<string name="n021">WiFiで操縦するならキャリヤの電波やBluetoothは不要です</string>
+	<string name="n022">自動飛行中も目を離さない</string>
+	<string name="n023">余裕をもった操縦を心がけましょう</string>
+	<string name="n024">素早く適正な判断が出来るように集中してください</string>
+	<string name="n025">緊急事態でも慌てずに</string>
+	<string name="n026">ドローン同士のバトル？</string>
+	<string name="n027">人をターゲットにしては絶対駄目です</string>
+	<string name="n028">バトルに夢中になって我を忘れこんなことに・・・</string>
+	<string name="n029">バッテリーのチェックは大事です</string>
+	<string name="n030">ローバッテリーは墜落や制御不能につながります</string>
+	<string name="n031">適正な充電はとても大切です</string>
+	<string name="n032">法規を守って安全・安心を心がけ楽しんでください</string>
+</resources>

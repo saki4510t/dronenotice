@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="n000">Do not pilot in the densely populated area. (Flight of drones may be prohibited by Aviation law in such place.)</string>
+	<string name="n001">Do not gain altitude too much. (Lower than 150m according to Aviation law.)</string>
+	<string name="n002">Do not pilot in the night.</string>
+	<string name="n003">Fly Me to the Moon</string>
+	<string name="n004">Pilot visually in any case.</string>
+	<string name="n005">Do not harm cultural assets or buildings.</string>
+	<string name="n006">Do not attack castles.</string>
+	<string name="n007">Do not attack buildings as well.</string>
+	<string name="n008">Do not scout the Diet Building in any case.</string>
+	<string name="n009">Do not attack fighter.</string>
+	<string name="n010">Do not hit helicopter.</string>
+	<string name="n011">Never ever attack human.</string>
+	<string name="n012">Do not abuse animals.</string>
+	<string name="n013">You may be retorted.</string>
+	<string name="n014">It is trespass to fly above someone’s land or house.</string>
+	<string name="n015">Do not intrude on someone’s privacy.</string>
+	<string name="n016">Do not spy.</string>
+	<string name="n017">Concentrate on pilot!</string>
+	<string name="n018">Keep checking flight condition.</string>
+	<string name="n019">Drone and controller are heat-sensitive. Protect them from out-of-control.</string>
+	<string name="n020">Turn off unnecessary signals.</string>
+	<string name="n021">Turn off cellular signal or Bluetooth if you control with WiFi.</string>
+	<string name="n022">Keep watching even while autopilot.</string>
+	<string name="n023">Stay on top of piloting.</string>
+	<string name="n024">Focus on piloting for quick and proper judgement.</string>
+	<string name="n025">Do not panic even in emergency.</string>
+	<string name="n026">Battle of drones.</string>
+	<string name="n027">Do not target human.</string>
+	<string name="n028">This kind of thing may happen if you are absorbed in the battle.</string>
+	<string name="n029">It is important to check battery.</string>
+	<string name="n030">Low battery results in crash or out-of-control.</string>
+	<string name="n031">Appropriate battery charge is very important. (It is a basic of preflight check.)</string>
+	<string name="n032">Comply with law and be safe and secure. Enjoy</string>
+</resources>
