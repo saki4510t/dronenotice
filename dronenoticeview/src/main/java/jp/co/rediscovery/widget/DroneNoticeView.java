@@ -94,11 +94,12 @@ public class DroneNoticeView extends LinearLayout {
 		R.string.n032,
 	};
 
-	private static final int IMAGE_NUM = IMAGES.length;
+	public static final int NOTICE_NUM = IMAGES.length;
 	private static final Random sRandom = new Random(System.nanoTime());
 
 	private ImageView mNoticeIv;
 	private TextView mNoticeTv;
+	private boolean mIsShowText;
 	/** 自動切り替え時の切替時間[ミリ秒] */
 	private long mSwitchDuration = SWITCH_DURATION;
 	/** 最後に表示した項目のインデックス */
@@ -122,45 +123,56 @@ public class DroneNoticeView extends LinearLayout {
 	}
 
 	private void initView(final Context context) {
+		mIsShowText = true;
 		setOrientation(LinearLayout.VERTICAL);
 		final LayoutInflater inflater = LayoutInflater.from(context);
 		try {
 			final View rootView = inflater.inflate(R.layout.view_notice, this, true);
 			mNoticeTv = (TextView)findViewById(R.id.notice);
 			mNoticeIv = (ImageView)findViewById(R.id.imageView);
-			setImage(0);
+			reset();
 		} catch (final Exception e) {
 			//
 		}
 	}
 
-	public void onResume() {
-		if (mSwitchDuration > 0L) {
-			mNoticeIv.postDelayed(mSwitchNoticeTask, mSwitchDuration);
+	@Override
+	protected void onVisibilityChanged(final View changedView, final int visibility) {
+		super.onVisibilityChanged(changedView, visibility);
+		switch (visibility) {
+		case VISIBLE:
+			if (mSwitchDuration > 0L) {
+				mNoticeIv.postDelayed(mSwitchNoticeTask, mSwitchDuration);
+			}
+			break;
+		case INVISIBLE:
+		case GONE:
+			mNoticeIv.removeCallbacks(mSwitchNoticeTask);
 		}
 	}
 
-	public void onPause() {
-		mNoticeIv.removeCallbacks(mSwitchNoticeTask);
+	public synchronized void reset() {
+		mDisplayed.clear();
+		set(0);
 	}
 
 	public synchronized void prev() {
-		setImage(mIndex - 1);
+		set(mIndex - 1);
 	}
 
 	public synchronized void next() {
-		setImage(mIndex + 1);
+		set(mIndex + 1);
 	}
 
 	public synchronized void nextRandom() {
 		int ix = mIndex + 1;
-		for (int i = 0; i < IMAGE_NUM; i++) {
-			ix = sRandom.nextInt(IMAGE_NUM);
+		for (int i = 0; i < NOTICE_NUM; i++) {
+			ix = sRandom.nextInt(NOTICE_NUM);
 			if (!mDisplayed.get(ix)) {
 				break;
 			}
 		}
-		setImage(ix);
+		set(ix);
 	}
 
 	/**
@@ -175,24 +187,39 @@ public class DroneNoticeView extends LinearLayout {
 		}
 	}
 
-	private void setImage(final int index) {
+	public synchronized int get() {
+		return mIndex;
+	}
+
+	public synchronized void set(final int index) {
 		mNoticeIv.removeCallbacks(mSwitchNoticeTask);
-		mIndex = index % IMAGE_NUM;
+		mIndex = index % NOTICE_NUM;
 		mDisplayed.put(mIndex, true);
-		if (mDisplayed.size() == IMAGE_NUM) {
+		if (mDisplayed.size() == NOTICE_NUM) {
 			// 全て表示したら再度表示できるように表示済みフラグをクリア
 			mDisplayed.clear();
 		}
-		mNoticeIv.post(new Runnable() {
-			@Override
-			public void run() {
-				mNoticeIv.setImageResource(IMAGES[mIndex]);
-				mNoticeTv.setText(NOTICES[mIndex]);
-				if (mSwitchDuration > 0L) {
-					mNoticeIv.postDelayed(mSwitchNoticeTask, mSwitchDuration);
+		if (getVisibility() == View.VISIBLE) {
+			mNoticeIv.post(new Runnable() {
+				@Override
+				public void run() {
+					mNoticeIv.setImageResource(IMAGES[mIndex]);
+					mNoticeTv.setText(NOTICES[mIndex]);
+					mNoticeTv.setVisibility(mIsShowText ? VISIBLE : GONE);
+					if (mSwitchDuration > 0L) {
+						mNoticeIv.postDelayed(mSwitchNoticeTask, mSwitchDuration);
+					}
 				}
-			}
-		});
+			});
+		}
+	}
+
+	public synchronized void setShowText(final boolean show) {
+		mIsShowText = show;
+	}
+
+	public synchronized boolean isShowText() {
+		return mIsShowText;
 	}
 
 	private final Runnable mSwitchNoticeTask
