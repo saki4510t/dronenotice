@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -98,7 +99,12 @@ public class DroneNoticeView extends LinearLayout {
 
 	private ImageView mNoticeIv;
 	private TextView mNoticeTv;
+	/** 自動切り替え時の切替時間[ミリ秒] */
 	private long mSwitchDuration = SWITCH_DURATION;
+	/** 最後に表示した項目のインデックス */
+	private int mIndex;
+	/** ランダム表示の時に同じのが続けて表示されないように表示済みかどうかを保持する */
+	private final SparseBooleanArray mDisplayed = new SparseBooleanArray();
 
 	public DroneNoticeView(final Context context) {
 		this(context, null);
@@ -122,7 +128,7 @@ public class DroneNoticeView extends LinearLayout {
 			final View rootView = inflater.inflate(R.layout.view_notice, this, true);
 			mNoticeTv = (TextView)findViewById(R.id.notice);
 			mNoticeIv = (ImageView)findViewById(R.id.imageView);
-			setImage();
+			setImage(0);
 		} catch (final Exception e) {
 			//
 		}
@@ -138,8 +144,23 @@ public class DroneNoticeView extends LinearLayout {
 		mNoticeIv.removeCallbacks(mSwitchNoticeTask);
 	}
 
-	public void next() {
-		setImage();
+	public synchronized void prev() {
+		setImage(mIndex - 1);
+	}
+
+	public synchronized void next() {
+		setImage(mIndex + 1);
+	}
+
+	public synchronized void nextRandom() {
+		int ix = mIndex + 1;
+		for (int i = 0; i < IMAGE_NUM; i++) {
+			ix = sRandom.nextInt(IMAGE_NUM);
+			if (!mDisplayed.get(ix)) {
+				break;
+			}
+		}
+		setImage(ix);
 	}
 
 	/**
@@ -154,21 +175,31 @@ public class DroneNoticeView extends LinearLayout {
 		}
 	}
 
-	private void setImage() {
+	private void setImage(final int index) {
 		mNoticeIv.removeCallbacks(mSwitchNoticeTask);
-		final int ix = sRandom.nextInt(IMAGE_NUM);
-		mNoticeIv.setImageResource(IMAGES[ix]);
-		mNoticeTv.setText(NOTICES[ix]);
-		if (mSwitchDuration > 0L) {
-			mNoticeIv.postDelayed(mSwitchNoticeTask, mSwitchDuration);
+		mIndex = index % IMAGE_NUM;
+		mDisplayed.put(mIndex, true);
+		if (mDisplayed.size() == IMAGE_NUM) {
+			// 全て表示したら再度表示できるように表示済みフラグをクリア
+			mDisplayed.clear();
 		}
+		mNoticeIv.post(new Runnable() {
+			@Override
+			public void run() {
+				mNoticeIv.setImageResource(IMAGES[mIndex]);
+				mNoticeTv.setText(NOTICES[mIndex]);
+				if (mSwitchDuration > 0L) {
+					mNoticeIv.postDelayed(mSwitchNoticeTask, mSwitchDuration);
+				}
+			}
+		});
 	}
 
 	private final Runnable mSwitchNoticeTask
 		= new Runnable() {
 		@Override
 		public void run() {
-			setImage();
+			nextRandom();
 		}
 	};
 }
